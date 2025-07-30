@@ -1,4 +1,28 @@
 # hashicorp
+
+Environment Details. 
+
+
+VMA - EC2 : 10.0.4.155
+VMB - EC2 : 10.0.4.55 
+
+VMA - docker 
+
+  [root@ip-10-0-4-155 hashicorp]# docker ps -a
+  CONTAINER ID   IMAGE     COMMAND                  CREATED          STATUS          PORTS                                                 NAMES
+  406750a616a2   nginx     "/docker-entrypoint.…"   5 seconds ago    Up 4 seconds    80/tcp, 0.0.0.0:8443->8443/tcp, [::]:8443->8443/tcp   nginx-ssl1-VMA
+  0f7390ca3688   nginx     "/docker-entrypoint.…"   30 minutes ago   Up 30 minutes   80/tcp, 0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   nginx-VMA
+  [root@ip-10-0-4-155 hashicorp]# 
+
+VMB - docker 
+
+  [root@ip-10-0-4-55 hashicorp]# docker ps
+  CONTAINER ID   IMAGE                               COMMAND      CREATED         STATUS         PORTS                                         NAMES
+  cfaf9e50da63   hashicorp-go-container-multistage   "/app/bin"   3 seconds ago   Up 3 seconds   0.0.0.0:8080->8080/tcp, [::]:8080->8080/tcp   go-app-multistage
+
+
+
+
 Q1 : Use an official Go base image (e.g., golang:1.22-alpine) for the build stage.
 Ans : Followed below steps. 
 Step 1 : Downloaded dockerhub and installed it on EC2 machine (VMA and VMB). 
