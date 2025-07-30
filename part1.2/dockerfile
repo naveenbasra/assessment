@@ -1,15 +1,10 @@
-FROM alpine:3.14
-
+FROM golang:1.24-alpine AS build
 WORKDIR /app
+COPY main.go go.mod ./
+RUN go mod download
+RUN go build -o /app/bin .
 
-COPY go.mod . 
-COPY main.go . 
-
-RUN wget https://go.dev/dl/go1.24.5.linux-amd64.tar.gz
-RUN rm -rf /usr/local/go 
-RUN tar -C /usr/local -xzf go1.24.5.linux-amd64.tar.gz
-RUN export PATH=$PATH:/usr/local/go/bin
-RUN echo $PATH
-RUN /usr/local/go/bin/go build -o bin .
-
-ENTRYPOINT [ "/app/bin" ]
+FROM alpine:latest
+WORKDIR /app
+COPY --from=build /app/bin .
+ENTRYPOINT ["/app/bin"]

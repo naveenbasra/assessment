@@ -14,9 +14,13 @@ func main() {
     }
 
     address := ":" + port
+    host, err1 := os.Hostname()
+    if err1 != nil{
+      log.Fatalf("Failed to get hostname : %v", err1)
+    }
 
     http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-        fmt.Fprintln(w, "Hello, World!")
+        fmt.Fprintln(w, host + " : Hello, World! ")
     })
 
     log.Printf("Server listening on http://%s\n", address)
@@ -25,5 +29,4 @@ func main() {
         log.Fatalf("Failed to start server: %v", err)
     }
 }
-
 
